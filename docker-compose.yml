@@ -1,0 +1,20 @@
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: social-analyzer-neo4j
+    restart: unless-stopped
+    ports:
+      - "${NEO4J_HTTP_PORT:-7474}:7474"
+      - "${NEO4J_BOLT_PORT:-7687}:7687"
+    environment:
+      # Credenciais vindas do .env (NEO4J_USER / NEO4J_PASSWORD)
+      NEO4J_AUTH: "${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?Defina NEO4J_PASSWORD no arquivo .env}"
+    volumes:
+      # CSVs do dataset, lidos pelo LOAD CSV via file:///
+      # (sem ":ro": o entrypoint do Neo4j executa chown neste diretório e falha em leitura apenas)
+      - ./data:/var/lib/neo4j/import
+      # Persistência do banco entre reinicializações
+      - neo4j_data:/data
+
+volumes:
+  neo4j_data:

@@ -1,0 +1,26 @@
+# Segredos e variaveis locais
+.env
+!.env.example
+
+# Dados locais do Neo4j
+neo4j/data/
+neo4j/logs/
+neo4j/plugins/
+neo4j-data/
+neo4j-logs/
+
+# Lista local de termos proibidos (nao versionar)
+.termos_proibidos.local
+
+# Caches Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+.venv/
+venv/
+*.egg-info/
+
+# Credenciais
+*.pem
+*.key
